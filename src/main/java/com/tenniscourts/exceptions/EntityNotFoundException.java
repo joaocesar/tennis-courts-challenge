@@ -9,9 +9,15 @@ public class EntityNotFoundException extends RuntimeException {
    *
    * @param msg the msg
    */
-  public EntityNotFoundException(String msg){
-        super(msg);
-    }
 
-    private EntityNotFoundException(){}
+  private static final String MESSAGE_DEFAULT = "Tennis Court not found.";
+
+  public EntityNotFoundException(String msg) {
+      super(msg);
+  }
+
+  public EntityNotFoundException() {
+     super(MESSAGE_DEFAULT);
+  }
+
 }

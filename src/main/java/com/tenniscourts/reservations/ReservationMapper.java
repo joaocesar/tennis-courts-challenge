@@ -1,8 +1,9 @@
 package com.tenniscourts.reservations;
 
+import com.tenniscourts.guests.Guest;
+import com.tenniscourts.schedules.Schedule;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ReservationMapper {
@@ -12,7 +13,14 @@ public interface ReservationMapper {
     @InheritInverseConfiguration
     ReservationDTO map(Reservation source);
 
-    @Mapping(target = "guest.id", source = "guestId")
-    @Mapping(target = "schedule.id", source = "scheduleId")
-    Reservation map(CreateReservationRequestDTO source);
+    default Reservation map(CreateReservationRequestDTO source) {
+        Reservation reservation = new Reservation();
+        Guest guest = new Guest();
+        guest.setId(source.getGuestId());
+        Schedule schedule = new Schedule();
+        schedule.setId(source.getScheduleId());
+        reservation.setGuest(guest);
+        reservation.setSchedule(schedule);
+        return reservation;
+    };
 }

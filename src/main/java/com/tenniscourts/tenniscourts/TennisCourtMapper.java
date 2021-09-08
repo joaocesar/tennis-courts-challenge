@@ -2,9 +2,11 @@ package com.tenniscourts.tenniscourts;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TennisCourtMapper {
+
     TennisCourtDTO map(TennisCourt source);
 
     @InheritInverseConfiguration
